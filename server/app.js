@@ -15,18 +15,18 @@ const db = new MySQL();
 if (!isProxmox) {
   db.init({
     host: '127.0.0.1',
-    port: 3306,
-    user: 'root',
-    password: 'root',
-    database: 'escola'
+    port: 3307,
+    user: 'user',
+    password: '1234',
+    database: 'sakila'
   });
 } else {
   db.init({
     host: '127.0.0.1',
-    port: 3306,
+    port: 3307,
     user: 'super',
     password: '1234',
-    database: 'escola'
+    database: 'sakila'
   });
 }
 
