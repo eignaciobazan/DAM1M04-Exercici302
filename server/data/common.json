@@ -1,0 +1,10 @@
+{
+  "site": {
+    "year": 2026,
+    "title": "El meu lloc web",
+    "subtitle": "Aprenent desenvolupament web",
+    "author": "Nom de l'autor",
+    "language": "ca",
+    "description": "Un exemple de dades comunes per a totes les pàgines."
+  }
+}

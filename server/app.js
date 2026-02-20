@@ -16,10 +16,19 @@ if (!isProxmox) {
   db.init({
     host: '127.0.0.1',
     port: 3307,
-    user: 'user',
+    user: 'super',
     password: '1234',
     database: 'sakila'
   });
+  /*
+  db.init({
+    host: '127.0.0.1',
+    port: 3306,
+    user: 'root',
+    password: 'tuclave',
+    database: 'sakila'
+  });
+  */
 } else {
   db.init({
     host: '127.0.0.1',
@@ -58,13 +67,16 @@ hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 app.get('/', async (req, res) => {
   try {
     // Obtenir les dades de la base de dades
-    const cursosRows = await db.query('SELECT id, nom, tematica FROM cursos ORDER BY id');
-    const especialitatsRows = await db.query('SELECT id, nom FROM especialitats ORDER BY nom');
-
+    const filmRows = await db.query(
+      `select f.title,f.release_year,a.first_name
+      from film f
+      left join film_actor fa on f.film_id=fa.film_id
+      left join actor a on fa.actor_id=a.actor_id
+      limit 5`
+    );
     // Transformar les dades a JSON (per les plantilles .hbs)
     // Cal informar de les columnes i els seus tipus
-    const cursosJson = db.table_to_json(cursosRows, { id: 'number', nom: 'string', tematica: 'string' });
-    const especialitatsJson = db.table_to_json(especialitatsRows, { id: 'number', nom: 'string' });
+    const filmsJson = db.table_to_json(filmRows, { title: 'string', realese_year: 'year', first_name: 'string' });
 
     // Llegir l'arxiu .json amb dades comunes per a totes les pàgines
     const commonData = JSON.parse(
@@ -73,10 +85,10 @@ app.get('/', async (req, res) => {
 
     // Construir l'objecte de dades per a la plantilla
     const data = {
-      cursos: cursosJson,
-      especialitats: especialitatsJson,
+      film: filmRows,
       common: commonData
     };
+    console.log(data)
 
     // Renderitzar la plantilla amb les dades
     res.render('index', data);
@@ -85,7 +97,7 @@ app.get('/', async (req, res) => {
     res.status(500).send('Error consultant la base de dades');
   }
 });
-
+/*
 app.get('/cursos', async (req, res) => {
   try {
 
@@ -132,11 +144,10 @@ app.get('/cursos', async (req, res) => {
     res.status(500).send('Error consultant la base de dades');
   }
 });
-
+*/
 // Start server
 const httpServer = app.listen(port, () => {
   console.log(`http://localhost:${port}`);
-  console.log(`http://localhost:${port}/cursos`);
 });
 
 // Graceful shutdown
