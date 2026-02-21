@@ -2,23 +2,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     {{> header}}
-    <title>Principal</title>
+    <title>{{common.common.title}}</title>
 </head>
 <body>
     <section class="texto">
-    <h1 class="playwrite-nz-basic-guides-regular">{{site.title}}</h1>
-    <h1 class="playwrite-nz-basic-guides-regular">{{site.subtitle}}</h1>
+    
     </section>
     
         <section class="orden">
+            <h1>Movies: </h1>
             <ul>
                 {{#each film}}
                 <li>
-                    <strong>{{first_name}}</strong><br/>
+                    <strong>{{first_name}} - {{title}} - {{release_year}}</strong><br/>
                 </li>
                 {{/each}}
             </ul>
 
+        </section>
+        <section class="orden">
+            <h1>categorias</h1>
+            <ul>
+                {{#each category}}
+                <li>
+                    <strong>{{name}}</strong>
+                </li>
+                {{/each}}
+            </ul>
         </section>
     
 </body>

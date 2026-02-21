@@ -1,7 +1,7 @@
 {
-  "site": {
+  "common": {
     "year": 2026,
-    "title": "El meu lloc web",
+    "title": "DAM1M04-EXERCICI302",
     "subtitle": "Aprenent desenvolupament web",
     "author": "Nom de l'autor",
     "language": "ca",
